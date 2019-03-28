@@ -5,3 +5,8 @@
 /Web/obj
 /.vs/MagicTravel/v15
 /.vs/MagicTravel7/v15/Server/sqlite3
+/Web/bin/Debug/netcoreapp2.2
+/DAL/obj
+/Core/obj
+/DAL/bin/Debug/netcoreapp2.2
+/Core/bin/Debug/netcoreapp2.2
