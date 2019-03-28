@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Web/obj
+/.vs/MagicTravel/v15
+/.vs/MagicTravel7/v15/Server/sqlite3

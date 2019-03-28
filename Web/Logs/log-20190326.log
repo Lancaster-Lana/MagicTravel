@@ -1,0 +1,22 @@
+2019-03-26T20:07:10.0368834+01:00 0HLLI3MURGSGP:00000001 [INF] The token request was successfully extracted from the HTTP request: "{
+  \"username\": \"user\",
+  \"password\": \"[removed for security reasons]\",
+  \"grant_type\": \"password\",
+  \"scope\": \"openid email phone profile offline_access roles\"
+}". (ebc01284)
+2019-03-26T20:07:10.0822114+01:00 0HLLI3MURGSGP:00000001 [DBG] The token request validation process was partially skipped because the 'client_id' parameter was missing or empty. (fcec36a0)
+2019-03-26T20:07:10.0876446+01:00 0HLLI3MURGSGP:00000001 [INF] The token request was successfully validated. (d7e51e65)
+2019-03-26T20:07:10.1022106+01:00 0HLLI3MURGSGP:00000001 [DBG] The default token request handling was skipped from user code. (72afae05)
+2019-03-26T20:07:20.0949723+01:00 0HLLI3MURGSGP:00000001 [INF] An ad hoc authorization was automatically created and associated with an unknown application: "8202507c-eece-4a32-bc68-4922f82a954c". (b5fe4ad7)
+2019-03-26T20:07:20.1183458+01:00 0HLLI3MURGSGP:00000001 [DBG] '"AspNet.Identity.SecurityStamp"' was excluded from the access token claims. (ed8f369e)
+2019-03-26T20:07:20.1220602+01:00 0HLLI3MURGSGP:00000001 [DBG] '"fullname"' was excluded from the access token claims. (ed8f369e)
+2019-03-26T20:07:20.1262346+01:00 0HLLI3MURGSGP:00000001 [DBG] '"email"' was excluded from the access token claims. (ed8f369e)
+2019-03-26T20:07:20.1300656+01:00 0HLLI3MURGSGP:00000001 [DBG] '"phone"' was excluded from the access token claims. (ed8f369e)
+2019-03-26T20:07:20.6118645+01:00 0HLLI3MURGSGP:00000001 [DBG] '"AspNet.Identity.SecurityStamp"' was excluded from the identity token claims. (7dcd2335)
+2019-03-26T20:07:20.6559796+01:00 0HLLI3MURGSGP:00000001 [INF] The token response was successfully returned: "{
+  \"token_type\": \"Bearer\",
+  \"access_token\": \"[removed for security reasons]\",
+  \"expires_in\": 3600,
+  \"refresh_token\": \"[removed for security reasons]\",
+  \"id_token\": \"[removed for security reasons]\"
+}". (12d98310)
