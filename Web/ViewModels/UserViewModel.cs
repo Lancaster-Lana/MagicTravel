@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Web.Helpers;
 
 namespace Web.ViewModels
@@ -25,11 +26,9 @@ namespace Web.ViewModels
 
         public bool IsLockedOut { get; set; }
 
-        [MinimumCount(1, ErrorMessage = "Roles cannot be empty")]
-        public string[] Roles { get; set; }
+        //[MinimumCount(1, ErrorMessage = "Roles cannot be empty")]
+        public IList<string> Roles { get; set; } = new List<string>();
     }
-
-
 
 
     ////Todo: ***Using DataAnnotations for validations until Swashbuckle supports FluentValidation***

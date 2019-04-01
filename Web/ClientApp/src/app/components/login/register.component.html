@@ -3,16 +3,16 @@
   </div>
   <div class="col-6 no-gutter">
     <h3 class="text-center">Registration Form</h3>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" asp-antiforgery="true" class="shadow">
-      <div class="form-group row">
-        <div class="col-6">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" asp-antiforgery="true" class="shadow form-horizontal">
+      <div class="row">
+        <div class="col-sm-6">
           <label for="firstName">First Name</label>
           <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
           <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
             <div *ngIf="f.firstName.errors.required">First Name is required</div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-sm-6">
           <label for="lastName">Last Name</label>
           <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
           <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
@@ -20,15 +20,15 @@
           </div>
         </div>
       </div>
-      <div class="form-group row">
-        <div class="col-6">
+      <div class="row">
+        <div class="col-sm-6">
           <label for="userName">Username</label>
           <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />
           <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
             <div *ngIf="f.userName.errors.required">Username is required</div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-sm-6">
           <label for="email">Email</label>
           <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
@@ -36,8 +36,8 @@
           </div>
         </div>
       </div>
-      <div [formGroup]="passwordFormGroup" class="form-group row">
-        <div class="col-6">
+      <div [formGroup]="passwordFormGroup" class="row">
+        <div class="col-sm-6">
           <div>
             <label for="password">Password</label>
             <input class="form-control" type="password" name="password" formControlName="password">
@@ -45,7 +45,7 @@
           <p class="text-danger" *ngIf="passwordFormGroup.controls.password.errors?.required">Password is required</p>
           <!--<p class="text-danger" *ngIf="passwordFormGroup.controls.password.errors?.minLength">Password has to be at least 6 symbols</p>-->
         </div>
-        <div class="col-6">
+        <div class="col-sm-6">
           <div>
             <label for="repeatPassword">Repeat Password</label>
             <input class="form-control" type="password" name="confirmPassword" formControlName="confirmPassword">
@@ -57,8 +57,8 @@
       <h4 *ngIf="errors" class="text-danger">
         {{ errors}}
       </h4>
-      <div class="navbar border">
-        <button routerLink="/login" class="btn btn-outline-danger">Cancel</button>
+      <div class="navbar btn-group">
+        <button routerLink="/login" class="btn btn-outline-danger pull-right">Cancel</button>
         <button [disabled]="loading" class="btn btn-success">
           Register
           <span *ngIf="loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>

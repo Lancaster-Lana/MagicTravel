@@ -16,7 +16,6 @@ using DAL.Core;
 
 namespace Web.Controllers
 {
-    [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
@@ -74,6 +73,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("users")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ViewAllUsersPolicy)]
         [ProducesResponseType(200, Type = typeof(List<UserViewModel>))]
         public async Task<IActionResult> GetUsers()
@@ -82,6 +82,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("users/{pageNumber:int}/{pageSize:int}")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ViewAllUsersPolicy)]
         [ProducesResponseType(200, Type = typeof(List<UserViewModel>))]
         public async Task<IActionResult> GetUsers(int pageNumber, int pageSize)
@@ -102,6 +103,7 @@ namespace Web.Controllers
         }
 
         [HttpPut("users/me")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
@@ -111,6 +113,7 @@ namespace Web.Controllers
         }
 
         [HttpPut("users/{id}")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
@@ -123,10 +126,8 @@ namespace Web.Controllers
             var manageUsersPolicy = _authorizationService.AuthorizeAsync(this.User, id, AccountManagementOperations.Update);
             var assignRolePolicy = _authorizationService.AuthorizeAsync(this.User, Tuple.Create(user.Roles, currentRoles), Policies.AssignAllowedRolesPolicy);
 
-
             if ((await Task.WhenAll(manageUsersPolicy, assignRolePolicy)).Any(r => !r.Succeeded))
                 return new ChallengeResult();
-
 
             if (ModelState.IsValid)
             {
@@ -138,7 +139,6 @@ namespace Web.Controllers
 
                 if (appUser == null)
                     return NotFound(id);
-
 
                 if (Utilities.GetUserId(this.User) == id && string.IsNullOrWhiteSpace(user.CurrentPassword))
                 {
@@ -188,6 +188,7 @@ namespace Web.Controllers
         }
 
         [HttpPatch("users/me")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> UpdateCurrentUser([FromBody] JsonPatchDocument<UserPatchViewModel> patch)
@@ -196,6 +197,7 @@ namespace Web.Controllers
         }
 
         [HttpPatch("users/{id}")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
@@ -228,38 +230,39 @@ namespace Web.Controllers
                     if (result.Item1)
                         return NoContent();
 
-
                     AddErrors(result.Item2);
                 }
             }
-
             return BadRequest(ModelState);
         }
 
 
         [HttpPost("users")]
-        [Authorize(Policies.ManageAllUsersPolicy)]
+        [AllowAnonymous]//[Authorize(Policies.ManageAllUsersPolicy)]
         [ProducesResponseType(201, Type = typeof(UserViewModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
         public async Task<IActionResult> Register([FromBody] UserEditViewModel user)
         {
-            if (!(await _authorizationService.AuthorizeAsync(this.User, Tuple.Create(user.Roles, new string[] { }), Policies.AssignAllowedRolesPolicy)).Succeeded)
-                return new ChallengeResult();
+            //if (!(await _authorizationService.AuthorizeAsync(this.User, Tuple.Create(user.Roles, new string[] { }), Policies.AssignAllowedRolesPolicy)).Succeeded)
+            //    return new ChallengeResult();
 
+            if (user.Roles == null || user.Roles.Count == 0)
+                user.Roles = new List<string> { nameof(user) }; //add default role
 
             if (ModelState.IsValid)
             {
                 if (user == null)
                     return BadRequest($"{nameof(user)} cannot be null");
 
+                user.IsEnabled = true; // unlock new account
 
-                ApplicationUser appUser = Mapper.Map<ApplicationUser>(user);
+                var appUser = Mapper.Map<ApplicationUser>(user);
 
                 var result = await _accountManager.CreateUserAsync(appUser, user.Roles, user.NewPassword);
                 if (result.Item1)
                 {
-                    UserViewModel userVM = await GetUserViewModelHelper(appUser.Id);
+                    var userVM = await GetUserViewModelHelper(appUser.Id);
                     return CreatedAtAction(GetUserByIdActionName, new { id = userVM.Id }, userVM);
                 }
 
@@ -271,6 +274,7 @@ namespace Web.Controllers
 
 
         [HttpDelete("users/{id}")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [ProducesResponseType(200, Type = typeof(UserViewModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
@@ -304,6 +308,7 @@ namespace Web.Controllers
 
 
         [HttpPut("users/unblock/{id}")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ManageAllUsersPolicy)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -325,6 +330,7 @@ namespace Web.Controllers
 
 
         [HttpGet("users/me/preferences")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [ProducesResponseType(200, Type = typeof(string))]
         [ProducesResponseType(404)]
         public async Task<IActionResult> UserPreferences()
@@ -340,6 +346,7 @@ namespace Web.Controllers
 
 
         [HttpPut("users/me/preferences")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> UserPreferences([FromBody] string data)
@@ -359,11 +366,8 @@ namespace Web.Controllers
             return NoContent();
         }
 
-
-
-
-
         [HttpGet("roles/{id}", Name = GetRoleByIdActionName)]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [ProducesResponseType(200, Type = typeof(RoleViewModel))]
         [ProducesResponseType(403)]
         [ProducesResponseType(404)]
@@ -382,6 +386,7 @@ namespace Web.Controllers
 
 
         [HttpGet("roles/name/{name}")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [ProducesResponseType(200, Type = typeof(RoleViewModel))]
         [ProducesResponseType(403)]
         [ProducesResponseType(404)]
@@ -401,6 +406,7 @@ namespace Web.Controllers
 
 
         [HttpGet("roles")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ViewAllRolesPolicy)]
         [ProducesResponseType(200, Type = typeof(List<RoleViewModel>))]
         public async Task<IActionResult> GetRoles()
@@ -410,6 +416,7 @@ namespace Web.Controllers
 
 
         [HttpGet("roles/{pageNumber:int}/{pageSize:int}")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ViewAllRolesPolicy)]
         [ProducesResponseType(200, Type = typeof(List<RoleViewModel>))]
         public async Task<IActionResult> GetRoles(int pageNumber, int pageSize)
@@ -420,6 +427,7 @@ namespace Web.Controllers
 
 
         [HttpPut("roles/{id}")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ManageAllRolesPolicy)]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -455,8 +463,8 @@ namespace Web.Controllers
             return BadRequest(ModelState);
         }
 
-
         [HttpPost("roles")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ManageAllRolesPolicy)]
         [ProducesResponseType(201, Type = typeof(RoleViewModel))]
         [ProducesResponseType(400)]
@@ -466,7 +474,6 @@ namespace Web.Controllers
             {
                 if (role == null)
                     return BadRequest($"{nameof(role)} cannot be null");
-
 
                 ApplicationRole appRole = Mapper.Map<ApplicationRole>(role);
 
@@ -483,8 +490,8 @@ namespace Web.Controllers
             return BadRequest(ModelState);
         }
 
-
         [HttpDelete("roles/{id}")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ManageAllRolesPolicy)]
         [ProducesResponseType(200, Type = typeof(RoleViewModel))]
         [ProducesResponseType(400)]
@@ -515,6 +522,7 @@ namespace Web.Controllers
 
 
         [HttpGet("permissions")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ViewAllRolesPolicy)]
         [ProducesResponseType(200, Type = typeof(List<PermissionViewModel>))]
         public IActionResult GetAllPermissions()
