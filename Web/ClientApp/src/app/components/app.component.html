@@ -21,6 +21,8 @@
             <li routerLinkActive="active" *ngIf="canViewCustomers"><a routerLink="/customers">{{'mainMenu.Customers' | translate}}</a></li>
             <li routerLinkActive="active" *ngIf="canViewProducts"><a routerLink="/products">{{'mainMenu.Products' | translate}}</a></li>
             <li routerLinkActive="active" *ngIf="canViewOrders"><a routerLink="/orders">{{'mainMenu.Orders' | translate}}</a></li>
+            <li routerLinkActive="active" *ngIf="canViewRoles"><a routerLink="/roles">{{'mainMenu.Roles' | translate}}</a></li>
+            <li routerLinkActive="active" *ngIf="canViewUsers"><a routerLink="/users">{{'mainMenu.Users' | translate}}</a></li>
             <li routerLinkActive="active"><a routerLink="/about">{{'mainMenu.About' | translate}}</a></li>
           </ul>
           <ul class="app-component nav navbar-nav nav-pills navBarPadding navbar-right">
@@ -33,11 +35,9 @@
               <span *ngIf="newNotificationCount > 0" class="badge">{{newNotificationCount}}</span>
             </a>,
           </p>
-
           <ng-template #popTemplate>
             <notifications-viewer [isViewOnly]="true"></notifications-viewer>
           </ng-template>
-
 
           <ul class="app-component nav navbar-nav nav-pills navBarPadding navbar-right">
             <li routerLinkActive="active"><a routerLink="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
@@ -62,9 +62,8 @@
           Loaded!
         </h1>
         <p>
-          QUICK APPLICATION SYSTEM - <span class="appName" style="font-style:italic">quick</span><span class="appName">App</span> &copy; <a href="https://www.lana-soft.com">WWW.lana-soft.COM</a>
+           <span class="appName" style="font-style:italic">Maggic Travel</span><span class="appName">App</span> &copy; <a href="https://www.lana-soft.com"> lana-soft </a>
         </p>
-
       </div>
     </div>
 
@@ -78,8 +77,7 @@
           <footer>
             <div class="app-component vcenter_text center-block">
               <p class="text-center text-muted">
-                <span class="appName" style="font-style:italic">quick</span><span class="appName">App</span> &copy; {{getYear()}}
-
+                <span class="appName" style="font-style:italic">Magic</span><span class="appName">Travel</span> &copy; {{getYear()}}
               </p>
             </div>
           </footer>
@@ -88,8 +86,11 @@
     </div>
   </div>
 
-  <div *ngIf="shouldShowLoginModal" class="modal fade" bsModal #loginModal="bs-modal" (onShown)="onLoginModalShown()" (onHidden)="onLoginModalHidden()" (onHide)="onLoginModalHide()"
-       [config]="{backdrop: 'static'}" tabindex="-1">
+  <div *ngIf="shouldShowLoginModal" class="modal fade"
+       bsModal #loginModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+       (onShown)="onLoginModalShown()"
+       (onHidden)="onLoginModalHidden()"
+       (onHide)="onLoginModalHide()" >
     <div class="modal-dialog modal-lg">
       <app-login #loginControl isModal="true"></app-login>
     </div>

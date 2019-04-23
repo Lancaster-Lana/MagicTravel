@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
 
@@ -18,7 +16,6 @@ namespace DAL.Core
         public static ApplicationPermission ViewRoles = new ApplicationPermission("View Roles", "roles.view", RolesPermissionGroupName, "Permission to view available roles");
         public static ApplicationPermission ManageRoles = new ApplicationPermission("Manage Roles", "roles.manage", RolesPermissionGroupName, "Permission to create, delete and modify roles");
         public static ApplicationPermission AssignRoles = new ApplicationPermission("Assign Roles", "roles.assign", RolesPermissionGroupName, "Permission to assign roles to users");
-
 
         static ApplicationPermissions()
         {
@@ -56,8 +53,6 @@ namespace DAL.Core
         }
     }
 
-
-
     public class ApplicationPermission
     {
         public ApplicationPermission()
@@ -71,19 +66,15 @@ namespace DAL.Core
             Description = description;
         }
 
-
-
         public string Name { get; set; }
         public string Value { get; set; }
         public string GroupName { get; set; }
         public string Description { get; set; }
 
-
         public override string ToString()
         {
             return Value;
         }
-
 
         public static implicit operator string(ApplicationPermission permission)
         {

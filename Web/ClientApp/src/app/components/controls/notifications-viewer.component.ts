@@ -26,7 +26,6 @@ export class NotificationsViewerComponent implements OnInit, OnDestroy {
   @Input()
   verticalScrollbar: boolean = false;
 
-
   @ViewChild('statusHeaderTemplate')
   statusHeaderTemplate: TemplateRef<any>;
 
@@ -67,17 +66,13 @@ export class NotificationsViewerComponent implements OnInit, OnDestroy {
       ];
     }
 
-
     this.initDataLoading();
   }
-
 
   ngOnDestroy() {
     if (this.dataLoadingSubscription)
       this.dataLoadingSubscription.unsubscribe();
   }
-
-
 
   initDataLoading() {
 
@@ -177,7 +172,8 @@ export class NotificationsViewerComponent implements OnInit, OnDestroy {
         });
   }
 
-  get canManageNotifications() {
+  get canManageNotifications()
+  {
     return this.accountService.userHasPermission(Permission.manageRolesPermission); //Todo: Consider creating separate permission for notifications
   }
 }

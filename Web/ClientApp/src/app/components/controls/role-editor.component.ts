@@ -31,7 +31,6 @@ export class RoleEditorComponent {
     constructor(private alertService: AlertService, private accountService: AccountService) {
     }
 
-
     private showErrorAlert(caption: string, message: string) {
         this.alertService.showMessage(caption, message, MessageSeverity.error);
     }
@@ -148,8 +147,8 @@ export class RoleEditorComponent {
         }
     }
 
-
-    newRole(allPermissions: Permission[]) {
+    newRole(allPermissions: Permission[])
+    {
         this.isNewRole = true;
         this.showValidationErrors = true;
 
@@ -161,7 +160,8 @@ export class RoleEditorComponent {
         return this.roleEdit;
     }
 
-    editRole(role: Role, allPermissions: Permission[]) {
+    editRole(role: Role, allPermissions: Permission[])
+    {
         if (role) {
             this.isNewRole = false;
             this.showValidationErrors = true;

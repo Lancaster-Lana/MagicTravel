@@ -1,4 +1,3 @@
-
 import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, Input } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
@@ -6,10 +5,9 @@ import { AlertService, DialogType, MessageSeverity } from '../../services/alert.
 import { AppTranslationService } from "../../services/app-translation.service";
 import { AccountService } from '../../services/account.service';
 import { Utilities } from '../../services/utilities';
-import { Role } from '../../models/role.model';
 import { Permission } from '../../models/permission.model';
+import { Role } from '../../models/role.model';
 import { RoleEditorComponent } from "./role-editor.component";
-
 
 @Component({
     selector: 'roles-management',
@@ -26,8 +24,6 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
     editingRoleName: { name: string };
     loadingIndicator: boolean;
 
-
-
     @ViewChild('indexTemplate')
     indexTemplate: TemplateRef<any>;
 
@@ -42,7 +38,6 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private accountService: AccountService) {
     }
-
 
     ngOnInit() {
 
@@ -59,10 +54,6 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
         this.loadData();
     }
 
-
-
-
-
     ngAfterViewInit() {
 
         this.roleEditor.changesSavedCallback = () => {
@@ -76,7 +67,6 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
             this.editorModal.hide();
         };
     }
-
 
     addNewRoleToList() {
         if (this.sourceRole) {
@@ -112,9 +102,6 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
         }
     }
 
-
-
-
     loadData() {
         this.alertService.startLoadingMessage();
         this.loadingIndicator = true;
@@ -131,7 +118,6 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
                     (<any>role).index = index + 1;
                 });
 
-
                 this.rowsCache = [...roles];
                 this.rows = roles;
 
@@ -146,17 +132,14 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
             });
     }
 
-
     onSearchChanged(value: string) {
         this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description));
     }
-
 
     onEditorModalHidden() {
         this.editingRoleName = null;
         this.roleEditor.resetForm(true);
     }
-
 
     newRole() {
         this.editingRoleName = null;
@@ -176,7 +159,6 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
     deleteRole(row: Role) {
         this.alertService.showDialog('Are you sure you want to delete the \"' + row.name + '\" role?', DialogType.confirm, () => this.deleteRoleHelper(row));
     }
-
 
     deleteRoleHelper(row: Role) {
 
@@ -200,9 +182,7 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
             });
     }
 
-
     get canManageRoles() {
         return this.accountService.userHasPermission(Permission.manageRolesPermission)
     }
-
 }

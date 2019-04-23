@@ -1,18 +1,19 @@
-
 import { Injectable } from '@angular/core';
-import { TranslateService, TranslateLoader } from '@ngx-translate/core';
 import { Observable, Subject, of } from 'rxjs';
+import { TranslateService, TranslateLoader } from '@ngx-translate/core';
+
 @Injectable()
 export class AppTranslationService {
 
   readonly defaultLanguage = "en";
+
   private onLanguageChanged = new Subject<string>();
   languageChanged$ = this.onLanguageChanged.asObservable();
 
   constructor(private translate: TranslateService) {
-
     this.setDefaultLanguage(this.defaultLanguage);
   }
+
   addLanguages(lang: string[]) {
     this.translate.addLangs(lang);
   }
@@ -48,24 +49,17 @@ export class AppTranslationService {
         this.onLanguageChanged.next(language);
       });
     }
-
     return language;
   }
-
 
   getTranslation(key: string | Array<string>, interpolateParams?: Object): string | any {
     return this.translate.instant(key, interpolateParams);
   }
 
-
   getTranslationAsync(key: string | Array<string>, interpolateParams?: Object): Observable<string | any> {
     return this.translate.get(key, interpolateParams);
   }
-
 }
-
-
-
 
 export class TranslateLanguageLoader implements TranslateLoader {
 

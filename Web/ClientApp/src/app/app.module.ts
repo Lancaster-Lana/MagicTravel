@@ -43,14 +43,13 @@ import { AppComponent } from "./components/app.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
 import { CustomersComponent } from "./components/customers/customers.component";
-import { ProductsComponent } from "./components/products/products.component";
-import { OrdersComponent } from "./components/orders/orders.component";
+import { OrdersListComponent } from "./components/orders/orders.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { AboutComponent } from "./components/about/about.component";
 import { NotFoundComponent } from "./components/not-found/not-found.component";
 
 import { BannerDemoComponent } from "./components/controls/banner-demo.component";
-import { TodoDemoComponent } from "./components/controls/todo-demo.component";
+import { CustomersListComponent } from "./components/controls/customers-list.component";
 import { StatisticsDemoComponent } from "./components/controls/statistics-demo.component";
 import { NotificationsViewerComponent } from "./components/controls/notifications-viewer.component";
 import { SearchBoxComponent } from "./components/controls/search-box.component";
@@ -61,6 +60,9 @@ import { RolesManagementComponent } from "./components/controls/roles-management
 import { RoleEditorComponent } from "./components/controls/role-editor.component";
 import { RegisterComponent } from "./components/login/register.component";
 import { CommonModule } from "@angular/common";
+import { ProductsListComponent } from "./components/products/products.component";
+import { ProductService } from "./services/product.service";
+import { OrderService } from "./services/order.service";
 
 @NgModule({
   imports: [
@@ -88,9 +90,7 @@ import { CommonModule } from "@angular/common";
     AppComponent,
     LoginComponent, RegisterComponent,
     HomeComponent,
-    CustomersComponent,
-    ProductsComponent,
-    OrdersComponent,
+    CustomersComponent, ProductsListComponent, OrdersListComponent,
     SettingsComponent,
     UsersManagementComponent, UserInfoComponent, UserPreferencesComponent,
     RolesManagementComponent, RoleEditorComponent,
@@ -98,7 +98,7 @@ import { CommonModule } from "@angular/common";
     NotFoundComponent,
     NotificationsViewerComponent,
     SearchBoxComponent,
-    StatisticsDemoComponent, TodoDemoComponent, BannerDemoComponent,
+    StatisticsDemoComponent, CustomersListComponent, BannerDemoComponent,
     EqualValidator,
     LastElementDirective,
     AutofocusDirective,
@@ -117,8 +117,8 @@ import { CommonModule } from "@angular/common";
     AppTranslationService,
     NotificationService,
     NotificationEndpoint,
-    AccountService,
-    AccountEndpoint,
+    AccountService, AccountEndpoint,
+    ProductService, OrderService,
     LocalStoreManager,
     EndpointFactory
   ],

@@ -8,12 +8,12 @@ import { LocalStoreManager } from '../../services/local-store-manager.service';
 import { Utilities } from "../../services/utilities";
 
 @Component({
-    selector: 'todo-demo',
-    templateUrl: './todo-demo.component.html',
-    styleUrls: ['./todo-demo.component.css']
+    selector: 'customers-list',
+    templateUrl: './customers-list.component.html',
+    styleUrls: ['./customers-list.component.css']
 })
-export class TodoDemoComponent implements OnInit, OnDestroy {
-    public static readonly DBKeyTodoDemo = "todo-demo.todo_list";
+export class CustomersListComponent implements OnInit, OnDestroy {
+    public static readonly DBKeyTodoDemo = "customers-list.todo_list";
 
     rows = [];
     rowsCache = [];
@@ -26,14 +26,12 @@ export class TodoDemoComponent implements OnInit, OnDestroy {
     _currentUserId: string;
     _hideCompletedTasks: boolean = false;
 
-
     get currentUserId() {
         if (this.authService.currentUser)
             this._currentUserId = this.authService.currentUser.id;
 
         return this._currentUserId;
     }
-
 
     set hideCompletedTasks(value: boolean) {
 
@@ -44,7 +42,6 @@ export class TodoDemoComponent implements OnInit, OnDestroy {
             this.rows = [...this.rowsCache];
         }
 
-
         this._hideCompletedTasks = value;
     }
 
@@ -52,10 +49,8 @@ export class TodoDemoComponent implements OnInit, OnDestroy {
         return this._hideCompletedTasks;
     }
 
-
     @Input()
     verticalScrollbar: boolean = false;
-
 
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
@@ -74,7 +69,6 @@ export class TodoDemoComponent implements OnInit, OnDestroy {
 
     @ViewChild('editorModal')
     editorModal: ModalDirective;
-
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localStorage: LocalStoreManager, private authService: AuthService) {
     }
@@ -168,7 +162,6 @@ export class TodoDemoComponent implements OnInit, OnDestroy {
         this.editorModal.hide();
     }
 
-
     updateValue(event, cell, cellValue, row) {
         this.editing[row.$$index + '-' + cell] = false;
         this.rows[row.$$index][cell] = event.target.value;
@@ -177,11 +170,9 @@ export class TodoDemoComponent implements OnInit, OnDestroy {
         this.saveToDisk();
     }
 
-
     delete(row) {
         this.alertService.showDialog('Are you sure you want to delete the task?', DialogType.confirm, () => this.deleteHelper(row));
     }
-
 
     deleteHelper(row) {
         this.rowsCache = this.rowsCache.filter(item => item !== row)
@@ -191,11 +182,11 @@ export class TodoDemoComponent implements OnInit, OnDestroy {
     }
 
     getFromDisk() {
-        return this.localStorage.getDataObject(`${TodoDemoComponent.DBKeyTodoDemo}:${this.currentUserId}`);
+        return this.localStorage.getDataObject(`${CustomersListComponent.DBKeyTodoDemo}:${this.currentUserId}`);
     }
 
     saveToDisk() {
         if (this.isDataLoaded)
-            this.localStorage.saveSyncedSessionData(this.rowsCache, `${TodoDemoComponent.DBKeyTodoDemo}:${this.currentUserId}`);
+            this.localStorage.saveSyncedSessionData(this.rowsCache, `${CustomersListComponent.DBKeyTodoDemo}:${this.currentUserId}`);
     }
 }

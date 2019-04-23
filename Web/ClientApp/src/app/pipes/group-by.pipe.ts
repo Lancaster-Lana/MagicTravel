@@ -2,8 +2,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'groupBy' })
-export class GroupByPipe implements PipeTransform {
-
+export class GroupByPipe implements PipeTransform
+{
     transform(value: Array<any>, field: string): Array<any> {
 
         if (!value)

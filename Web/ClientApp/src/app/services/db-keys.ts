@@ -12,8 +12,6 @@ export class DBkeys {
     public static readonly TOKEN_EXPIRES_IN = "expires_in";
 
     public static readonly REMEMBER_ME = "remember_me";
-
-
     public static readonly LANGUAGE = "language";
     public static readonly HOME_URL = "home_url";
     public static readonly THEME = "theme";

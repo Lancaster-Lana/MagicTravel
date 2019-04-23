@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace DAL.Repositories.Interfaces
@@ -8,8 +9,8 @@ namespace DAL.Repositories.Interfaces
     public interface IRepository<TEntity> where TEntity : class
     {
         TEntity Get(int id);
-        IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 
         void Add(TEntity entity);

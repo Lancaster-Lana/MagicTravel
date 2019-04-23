@@ -159,6 +159,29 @@
     "Date": "Date",
     "Notification": "Notification"
   },
+
+  "product": {
+    "management": {
+      "Name": "Name",
+      "Product": "Product",
+      "Price": "Product Price per unit",
+      "Description": "Description",
+      "Search": "Search for product...",
+      "HideCompleted": "Hide Completed",
+      "AddProduct": "Add Name",
+      "Delete": "Delete Product",
+      "Important": "Mark as important"
+    },
+    "editor": {
+      "NewProduct": "New Product",
+      "Name": "Product Name",
+      "Price": "Product Price per unit",
+      "TaskNameRequired": "Product name is required",
+      "Description": "Description",
+      "Important": "Mark as important",
+      "AddProduct": "Add Product"
+    }
+  },
   "todoDemo": {
     "management": {
       "Search": "Search for task...",

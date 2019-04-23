@@ -1,4 +1,3 @@
-
 import { Component, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({

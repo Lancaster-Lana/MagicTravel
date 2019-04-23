@@ -52,7 +52,6 @@ export class AccountService {
       this.accountEndpoint.getRolesEndpoint<Role[]>());
   }
 
-
   updateUser(user: UserEdit) {
     if (user.id) {
       return this.accountEndpoint.getUpdateUserEndpoint(user, user.id);
@@ -185,8 +184,6 @@ export class AccountService {
   getRolesChangedEvent(): Observable<RolesChangedEventArg> {
     return this._rolesChanged.asObservable();
   }
-
-
 
   get permissions(): PermissionValues[] {
     return this.authService.userPermissions;

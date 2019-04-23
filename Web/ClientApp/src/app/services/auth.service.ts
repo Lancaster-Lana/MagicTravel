@@ -178,7 +178,6 @@ export class AuthService {
     this.reevaluateLoginStatus();
   }
 
-
   private reevaluateLoginStatus(currentUser?: User) {
 
     let user = currentUser || this.localStorage.getDataObject<User>(DBkeys.CURRENT_USER);
@@ -193,11 +192,9 @@ export class AuthService {
     this.previousIsLoggedInCheck = isLoggedIn;
   }
 
-
   getLoginStatusEvent(): Observable<boolean> {
     return this._loginStatus.asObservable();
   }
-
 
   get currentUser(): User {
 
@@ -251,5 +248,16 @@ export class AuthService {
 
   get rememberMe(): boolean {
     return this.localStorage.getDataObject<boolean>(DBkeys.REMEMBER_ME) == true;
+  }
+
+  //=====USER session  =======
+
+  storeSessionData(dataType: string, data: any) {
+    //return this.sendRequest(RequestMethod.Post, sessionUrl + dataType, data)
+    //  .subscribe(response => { });
+  }
+
+  getSessionData(dataType: string) {
+    //return this.sendRequest(RequestMethod.Get, sessionUrl + dataType);
   }
 }

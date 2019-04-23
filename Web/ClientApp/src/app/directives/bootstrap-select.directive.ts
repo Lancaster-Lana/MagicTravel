@@ -24,7 +24,6 @@ export class BootstrapSelectDirective implements OnInit, OnDestroy {
     setTimeout(() => this.selected = values);
   }
 
-
   @Output()
   ngModelChange = new EventEmitter();
 
@@ -34,7 +33,6 @@ export class BootstrapSelectDirective implements OnInit, OnDestroy {
   @Output()
   hidden = new EventEmitter();
 
-
   constructor(private el: ElementRef) {
     this.changedSubscription = fromEvent($(this.el.nativeElement), 'changed.bs.select').subscribe((e: any) => setTimeout(() => {
       if (this.checkIsValuesChanged(this.selected))
@@ -43,7 +41,6 @@ export class BootstrapSelectDirective implements OnInit, OnDestroy {
     this.shownSubscription = fromEvent($(this.el.nativeElement), 'shown.bs.select').subscribe((e: any) => setTimeout(() => this.shown.emit()));
     this.hiddenSubscription = fromEvent($(this.el.nativeElement), 'hidden.bs.select').subscribe((e: any) => setTimeout(() => this.hidden.emit()));
   }
-
 
   ngOnInit() {
     $(this.el.nativeElement).selectpicker();
@@ -55,7 +52,6 @@ export class BootstrapSelectDirective implements OnInit, OnDestroy {
       this.refresh();
       this.doValidation();
     });
-
   }
 
   ngOnDestroy() {

@@ -18,6 +18,26 @@ namespace DAL.Repositories
             _entities = context.Set<TEntity>();
         }
 
+        public virtual IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _entities.Where(predicate);
+        }
+
+        public virtual TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _entities.SingleOrDefault(predicate);
+        }
+
+        public virtual TEntity Get(int id)
+        {
+            return _entities.Find(id);
+        }
+
+        public virtual IQueryable<TEntity> GetAll()
+        {
+            return _entities;
+        }
+
         public virtual void Add(TEntity entity)
         {
             _entities.Add(entity);
@@ -27,7 +47,6 @@ namespace DAL.Repositories
         {
             _entities.AddRange(entities);
         }
-
 
         public virtual void Update(TEntity entity)
         {
@@ -49,31 +68,9 @@ namespace DAL.Repositories
             _entities.RemoveRange(entities);
         }
 
-
         public virtual int Count()
         {
             return _entities.Count();
-        }
-
-
-        public virtual IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-        {
-            return _entities.Where(predicate);
-        }
-
-        public virtual TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate)
-        {
-            return _entities.SingleOrDefault(predicate);
-        }
-
-        public virtual TEntity Get(int id)
-        {
-            return _entities.Find(id);
-        }
-
-        public virtual IEnumerable<TEntity> GetAll()
-        {
-            return _entities.ToList();
         }
     }
 }

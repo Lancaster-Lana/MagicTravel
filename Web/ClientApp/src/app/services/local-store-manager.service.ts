@@ -295,7 +295,6 @@ export class LocalStoreManager {
     this.addToSessionStorage(data, key);
   }
 
-
   public savePermanentData(data: any, key = LocalStoreManager.DBKEY_USER_DATA) {
 
     this.testForInvalidKeys(key);
@@ -303,8 +302,6 @@ export class LocalStoreManager {
     this.removeFromSessionStorage(key);
     this.localStorageSetItem(key, data);
   }
-
-
 
   public moveDataToSessionStorage(key = LocalStoreManager.DBKEY_USER_DATA) {
 

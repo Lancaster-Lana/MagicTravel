@@ -425,7 +425,6 @@ namespace Web.Controllers
             return Ok(Mapper.Map<List<RoleViewModel>>(roles));
         }
 
-
         [HttpPut("roles/{id}")]
         [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         [Authorize(Policies.ManageAllRolesPolicy)]
@@ -442,22 +441,18 @@ namespace Web.Controllers
                 if (!string.IsNullOrWhiteSpace(role.Id) && id != role.Id)
                     return BadRequest("Conflicting role id in parameter and model data");
 
-
-
                 ApplicationRole appRole = await _accountManager.GetRoleByIdAsync(id);
 
                 if (appRole == null)
                     return NotFound(id);
 
-
-                Mapper.Map<RoleViewModel, ApplicationRole>(role, appRole);
+                Mapper.Map(role, appRole);
 
                 var result = await _accountManager.UpdateRoleAsync(appRole, role.Permissions?.Select(p => p.Value).ToArray());
                 if (result.Item1)
                     return NoContent();
 
                 AddErrors(result.Item2);
-
             }
 
             return BadRequest(ModelState);
@@ -501,13 +496,11 @@ namespace Web.Controllers
             if (!await _accountManager.TestCanDeleteRoleAsync(id))
                 return BadRequest("Role cannot be deleted. Remove all users from this role and try again");
 
-
             RoleViewModel roleVM = null;
             ApplicationRole appRole = await this._accountManager.GetRoleByIdAsync(id);
 
             if (appRole != null)
                 roleVM = await GetRoleViewModelHelper(appRole.Name);
-
 
             if (roleVM == null)
                 return NotFound(id);
@@ -515,7 +508,6 @@ namespace Web.Controllers
             var result = await this._accountManager.DeleteRoleAsync(appRole);
             if (!result.Item1)
                 throw new Exception("The following errors occurred whilst deleting role: " + string.Join(", ", result.Item2));
-
 
             return Ok(roleVM);
         }
@@ -542,17 +534,13 @@ namespace Web.Controllers
             return userVM;
         }
 
-
         private async Task<RoleViewModel> GetRoleViewModelHelper(string roleName)
         {
             var role = await _accountManager.GetRoleLoadRelatedAsync(roleName);
             if (role != null)
                 return Mapper.Map<RoleViewModel>(role);
-
-
             return null;
         }
-
 
         private void AddErrors(IEnumerable<string> errors)
         {

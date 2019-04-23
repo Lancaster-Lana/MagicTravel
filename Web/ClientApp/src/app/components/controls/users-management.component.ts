@@ -182,11 +182,9 @@ export class UsersManagementComponent implements OnInit, AfterViewInit
         this.editorModal.show();
     }
 
-
     deleteUser(row: UserEdit) {
         this.alertService.showDialog('Are you sure you want to delete \"' + row.userName + '\"?', DialogType.confirm, () => this.deleteUserHelper(row));
     }
-
 
     deleteUserHelper(row: UserEdit) {
 
@@ -209,8 +207,6 @@ export class UsersManagementComponent implements OnInit, AfterViewInit
                     MessageSeverity.error, error);
             });
     }
-
-
 
     get canAssignRoles() {
         return this.accountService.userHasPermission(Permission.assignRolesPermission);

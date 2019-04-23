@@ -16,7 +16,6 @@ export class Permission {
     public static readonly manageRolesPermission: PermissionValues = "roles.manage";
     public static readonly assignRolesPermission: PermissionValues = "roles.assign";
 
-
     constructor(name?: PermissionNames, value?: PermissionValues, groupName?: string, description?: string) {
         this.name = name;
         this.value = value;

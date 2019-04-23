@@ -21,20 +21,15 @@ export class NotificationService {
     this._recentNotifications = notifications;
   }
 
-
-
   constructor(private notificationEndpoint: NotificationEndpoint, private authService: AuthService) {
 
   }
-
 
   getNotification(notificationId?: number) {
 
     return this.notificationEndpoint.getNotificationEndpoint(notificationId).pipe(
       map(response => Notification.Create(response)));
   }
-
-
   getNotifications(page: number, pageSize: number) {
 
     return this.notificationEndpoint.getNotificationsEndpoint(page, pageSize).pipe(
@@ -85,9 +80,6 @@ export class NotificationService {
     return this.notificationEndpoint.getReadUnreadNotificationEndpoint(notificationIds, isRead);
   }
 
-
-
-
   deleteNotification(notificationOrNotificationId: number | Notification): Observable<Notification> {
 
     if (typeof notificationOrNotificationId === 'number' || notificationOrNotificationId instanceof Number) { //Todo: Test me if its check is valid
@@ -102,9 +94,6 @@ export class NotificationService {
     }
   }
 
-
-
-
   private processNewNotificationsFromResponse(response) {
     let notifications = this.getNotificationsFromResponse(response);
 
@@ -115,7 +104,6 @@ export class NotificationService {
 
     return notifications;
   }
-
 
   private getNotificationsFromResponse(response) {
     let notifications: Notification[] = [];
@@ -131,8 +119,6 @@ export class NotificationService {
 
     return notifications;
   }
-
-
 
   get currentUser() {
     return this.authService.currentUser;

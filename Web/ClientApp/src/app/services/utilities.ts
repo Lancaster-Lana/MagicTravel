@@ -43,10 +43,8 @@ export class Utilities {
         if (this.checkAccessDenied(data))
             responses.splice(0, 0, `${this.accessDeniedMessageCaption}${this.captionAndMessageSeparator} ${this.accessDeniedMessageDetail}`);
 
-
         return responses;
     }
-
 
     public static findHttpResponseMessage(messageToFind: string, data: HttpResponse<any> | any, seachInCaptionOnly = true, includeCaptionInResult = false): string {
 
@@ -75,10 +73,8 @@ export class Utilities {
                 }
             }
         }
-
         return null;
     }
-
 
     public static getResponseBody(response: HttpResponseBase) {
         if (response instanceof HttpResponse)
@@ -88,12 +84,10 @@ export class Utilities {
             return response.error || response.message || response.statusText;
     }
 
-
     public static checkNoNetwork(response: HttpResponseBase) {
         if (response instanceof HttpResponseBase) {
             return response.status == 0;
         }
-
         return false;
     }
 
@@ -101,7 +95,6 @@ export class Utilities {
         if (response instanceof HttpResponseBase) {
             return response.status == 403;
         }
-
         return false;
     }
 
@@ -122,8 +115,6 @@ export class Utilities {
         return false;
     }
 
-
-
     public static getQueryParamsFromString(paramString: string) {
 
         if (!paramString)
@@ -139,7 +130,6 @@ export class Utilities {
         return params;
     }
 
-
     public static splitInTwo(text: string, separator: string): { firstPart: string, secondPart: string } {
         let separatorIndex = text.indexOf(separator);
 
@@ -151,7 +141,6 @@ export class Utilities {
 
         return { firstPart: part1, secondPart: part2 };
     }
-
 
     public static safeStringify(object) {
 
@@ -185,7 +174,6 @@ export class Utilities {
         return result;
     }
 
-
     public static JSonTryParse(value: string) {
         try {
             return JSON.parse(value);
@@ -197,7 +185,6 @@ export class Utilities {
             return value;
         }
     }
-
 
     public static TestIsObjectEmpty(obj: any) {
         for (let prop in obj) {

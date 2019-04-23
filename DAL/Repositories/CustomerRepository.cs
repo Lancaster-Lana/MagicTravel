@@ -1,9 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Microsoft.EntityFrameworkCore;
+
 using DAL.Repositories.Interfaces;
 using Core.Entities;
 
@@ -14,12 +13,10 @@ namespace DAL.Repositories
         public CustomerRepository(AppDbContext context) : base(context)
         { }
 
-
         public IEnumerable<Customer> GetTopActiveCustomers(int count)
         {
             throw new NotImplementedException();
         }
-
 
         public IEnumerable<Customer> GetAllCustomersData()
         {
@@ -29,8 +26,6 @@ namespace DAL.Repositories
                 .OrderBy(c => c.Name)
                 .ToList();
         }
-
-
 
         private AppDbContext _appContext => (AppDbContext)_context;
     }

@@ -55,7 +55,7 @@ namespace DAL
             {
                 _logger.LogInformation("Seeding initial data");
 
-                Customer cust_1 = new Customer
+                var cust_1 = new Customer
                 {
                     Name = " Trava",
                     Email = "contact@trava.com",
@@ -64,7 +64,7 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-                Customer cust_2 = new Customer
+                var cust_2 = new Customer
                 {
                     Name = "LanaLuna",
                     Email = "uchiha@narutoverse.com",
@@ -76,7 +76,7 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-                Customer cust_3 = new Customer
+                var cust_3 = new Customer
                 {
                     Name = "John Doe",
                     Email = "johndoe@anonymous.com",
@@ -89,7 +89,7 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-                Customer cust_4 = new Customer
+                var cust_4 = new Customer
                 {
                     Name = "Jane Doe",
                     Email = "Janedoe@anonymous.com",
@@ -102,7 +102,7 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-                ProductCategory prodCat_1 = new ProductCategory
+                var prodCat_1 = new ProductCategory
                 {
                     Name = "None",
                     Description = "Default category. Products that have not been assigned a category",
@@ -110,7 +110,7 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-                Product prod_1 = new Product
+                var prod_1 = new Product
                 {
                     Name = "BMW M6",
                     Description = "Yet another masterpiece from the world's best car manufacturer",
@@ -123,7 +123,7 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-                Product prod_2 = new Product
+                var prod_2 = new Product
                 {
                     Name = "Nissan Patrol",
                     Description = "A true man's choice",
@@ -136,9 +136,7 @@ namespace DAL
                     DateModified = DateTime.UtcNow
                 };
 
-
-
-                Order ordr_1 = new Order
+                var ordr_1 = new Order
                 {
                     Discount = 500,
                     Cashier = await _context.Users.FirstAsync(),
@@ -152,7 +150,7 @@ namespace DAL
                     }
                 };
 
-                Order ordr_2 = new Order
+                var ordr_2 = new Order
                 {
                     Cashier = await _context.Users.FirstAsync(),
                     Customer = cust_2,
@@ -185,7 +183,7 @@ namespace DAL
         {
             if ((await _accountManager.GetRoleByNameAsync(roleName)) == null)
             {
-                ApplicationRole applicationRole = new ApplicationRole(roleName, description);
+                var applicationRole = new ApplicationRole(roleName, description);
 
                 var result = await this._accountManager.CreateRoleAsync(applicationRole, claims);
 

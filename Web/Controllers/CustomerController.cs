@@ -8,13 +8,14 @@ using AutoMapper;
 using Web.Helpers;
 using Web.ViewModels;
 using DAL;
+using Core.Entities;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
     public class CustomerController : Controller
     {
-        private IUnitOfWork _unitOfWork;
+        readonly IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
         readonly IEmailSender _emailer;
 
@@ -25,7 +26,16 @@ namespace Web.Controllers
             _emailer = emailer;
         }
 
-        // GET: api/values
+        // GET api/customer/5
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(Customer))]
+        public IActionResult Get(int id)
+        {
+            var customer =  _unitOfWork.Customers.Get(id);
+            return Ok(customer);
+        }
+
+        // GET: api/customer
         [HttpGet]
         public IActionResult Get()
         {
@@ -34,12 +44,29 @@ namespace Web.Controllers
             return Ok(model);
         }
 
-        [HttpGet("throw")]
-        public IEnumerable<CustomerViewModel> Throw()
+        /// <summary>
+        /// Create customer
+        /// </summary>
+        /// <param name="customer"></param>
+        // POST api/customer
+        [HttpPost]
+        public void Post([FromBody]CustomerViewModel customer)
         {
-            throw new InvalidOperationException("This is a test exception: " + DateTime.Now);
+            var entity = Mapper.Map<Customer>(customer); 
+            _unitOfWork.Customers.Add(entity);
+            _unitOfWork.SaveChanges();
         }
 
+        // PUT api/values/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody]string value)
+        {
+        }
+
+        /// <summary>
+        /// TODO: Send email
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("email")]
         public async Task<string> Email()
         {
@@ -55,30 +82,6 @@ namespace Web.Controllers
 
             return "Error: " + errorMsg;
         }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value: " + id;
-        }
-
-        /// <summary>
-        /// Create customer
-        /// </summary>
-        /// <param name="customer"></param>
-        // POST api/customer
-        [HttpPost]
-        public void Post([FromBody]string customer)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
 
 
         // DELETE api/values/5

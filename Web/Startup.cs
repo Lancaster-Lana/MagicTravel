@@ -69,12 +69,11 @@ namespace Web
                 .AddValidation(); //Only compatible with the default token format. For JWT tokens, use the Microsoft JWT bearer handler.
 
 
+            var connectionString =  Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(
-                    Configuration["ConnectionStrings:DefaultConnection"]//, b => b.MigrationsAssembly("DAL")
-                    );
-                 
+                options.UseSqlServer(connectionString  );//, b => b.MigrationsAssembly("DAL")
+                             
                 options.UseOpenIddict();//options.UseOpenIddict<Guid>();
             });
 
@@ -199,8 +198,6 @@ namespace Web
             try
             {
                 //Having database seeding here rather than in Program.Main() ensures logger is configured before seeding occurs
-
-                //TODO:
                 databaseInitializer.SeedAsync().Wait();
             }
             catch (Exception ex)
@@ -249,6 +246,5 @@ namespace Web
                 }
             });
         }
-
     }
 }
