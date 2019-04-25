@@ -164,18 +164,18 @@
     "management": {
       "Name": "Name",
       "Product": "Product",
-      "Price": "Product Price per unit",
+      "Price": "Payed Price",
       "Description": "Description",
-      "Search": "Search for product...",
+      "Search": "Search a product...",
       "HideCompleted": "Hide Completed",
-      "AddProduct": "Add Name",
+      "AddProduct": "Add Product",
       "Delete": "Delete Product",
       "Important": "Mark as important"
     },
     "editor": {
       "NewProduct": "New Product",
       "Name": "Product Name",
-      "Price": "Product Price per unit",
+      "Price": "Payed Price",
       "TaskNameRequired": "Product name is required",
       "Description": "Description",
       "Important": "Mark as important",

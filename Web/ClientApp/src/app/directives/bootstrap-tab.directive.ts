@@ -12,7 +12,6 @@ type eventArg = { type: string, target: Element, relatedTarget: Element };
 })
 export class BootstrapTabDirective implements OnDestroy {
 
-
   @Output()
   showBSTab = new EventEmitter<eventArg>();
 
@@ -21,7 +20,6 @@ export class BootstrapTabDirective implements OnDestroy {
 
   private tabShownSubscription: Subscription;
   private tabHiddenSubscription: Subscription;
-
 
   constructor(private el: ElementRef, private zone: NgZone) {
 

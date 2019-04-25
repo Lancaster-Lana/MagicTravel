@@ -3,7 +3,9 @@ import { Address } from "./address.model";
 export class Order
 {
   id: number = 0;
-  name: string = ""; //addresser FIO
+  comments: string = "";
+  discount: number = 0;
+  name: string = ""; //addresser сustomer FIO
   email: string; //email for notification with order\delivery time etc.
   address: Address = new Address(); //set default empty address
   payment: Payment = new Payment();

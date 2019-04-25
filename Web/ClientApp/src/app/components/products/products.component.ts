@@ -5,6 +5,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { AppTranslationService } from 'src/app/services/app-translation.service';
 import { fadeInOut } from '../../services/animations';
+import { Utilities } from 'src/app/services/utilities';
 
 @Component({
     selector: 'products',
@@ -19,9 +20,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   columns = [];
   products = [];
-  editing = {};
+  editing = {}; //table edit
+
+  productEdit = {};
 
   errorReceived: boolean = false;
+  errorMsg: string;
 
   @Input()
   verticalScrollbar: boolean = false;
@@ -34,6 +38,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   @ViewChild('nameTemplate')
   nameTemplate: TemplateRef<any>;
+
+  @ViewChild('priceTemplate')
+  priceTemplate: TemplateRef<any>;
 
   @ViewChild('descriptionTemplate')
   descriptionTemplate: TemplateRef<any>;
@@ -64,7 +71,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.columns = [
       { prop: "completed", name: '', width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
       { prop: 'name', name: gT('product.management.Name'), cellTemplate: this.nameTemplate, width: 200 },
-      { prop: 'price', name: gT('product.management.Price'), cellTemplate: this.nameTemplate, width: 200 },
+      { prop: 'buyingPrice', name: gT('product.management.Price'), cellTemplate: this.priceTemplate, width: 200 },
 
       { prop: 'description', name: gT('product.management.Description'), cellTemplate: this.descriptionTemplate, width: 500 },
       { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
@@ -84,12 +91,31 @@ export class ProductsListComponent implements OnInit, OnDestroy {
           err => {
             //this.errorMsg = err ? err.Error : null;
             this.errorReceived = true;
+            this.errorMsg = err ? err.Error : null;
           });
     }
 
-
   ngOnDestroy() {
     //this.saveToDisk();
+  }
+
+  onSearchChanged(value: string) {
+    //this.products = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
+  }
+
+  //showErrorAlert(caption: string, message: string) {
+  //  this.alertService.showMessage(caption, message, MessageSeverity.error);
+  //}
+
+  addProduct() {
+    //this.formResetToggle = false;
+
+    setTimeout(() => {
+      //this.formResetToggle = true;
+
+      this.productEdit = {};
+      this.editorModal.show();
+    });
   }
 
   /*

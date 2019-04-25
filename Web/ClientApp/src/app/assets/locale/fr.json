@@ -163,7 +163,7 @@
     "management": {
       "Name": "Nom",
       "Product": "Produit",
-      "Price": "Prix du produit à l'unité",
+      "Price": "Prix du produit",
       "Description": "Description",
       "Search": "Search for product...",
       "HideCompleted": "Hide Completed",
@@ -174,7 +174,7 @@
     "editor": {
       "NewProduct": "Nouvelle produit",
       "Name": "Le nom du produit",
-      "Price": "Prix du produit à l'unité",
+      "Price": "Prix du produit",
       "TaskNameRequired": "Product name is required",
       "Description": "Description",
       "Important": "Marquer comme important",

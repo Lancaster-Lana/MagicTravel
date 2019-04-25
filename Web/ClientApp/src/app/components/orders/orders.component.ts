@@ -36,8 +36,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   @ViewChild('nameTemplate')
   nameTemplate: TemplateRef<any>;
 
-  @ViewChild('descriptionTemplate')
-  descriptionTemplate: TemplateRef<any>;
+  @ViewChild('commentsTemplate')
+  commentsTemplate: TemplateRef<any>;
 
   @ViewChild('actionsTemplate')
   actionsTemplate: TemplateRef<any>;
@@ -65,8 +65,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     this.columns = [
       { prop: "completed", name: '', width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
       //{ prop: 'customerId', name: 'customerId', cellTemplate: this.nameTemplate, width: 200 },
-      { prop: 'discount', name: 'discount', cellTemplate: this.descriptionTemplate, width: 500 },
-      { prop: 'comment', name: 'comment', cellTemplate: this.descriptionTemplate, width: 500 },
+      //{ prop: 'discount', name: 'discount', cellTemplate: this.discountTemplate, width: 500 },
+      { prop: 'comments', name: 'comments', cellTemplate: this.commentsTemplate, width: 500 },
       { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
     ];
   }

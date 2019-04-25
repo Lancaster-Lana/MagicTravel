@@ -3,7 +3,7 @@
     <h3><i class="fa fa-shopping-cart fa-lg page-caption" aria-hidden="true"></i> {{'pageHeader.Orders' | translate}}</h3>
   </header>
   <div [@fadeInOut]>
-     
+
     <ngx-datatable class="material colored-header sm table table-striped table-hover"
                    [loadingIndicator]="loadingIndicator"
                    [rows]="orders"
@@ -41,41 +41,48 @@
       </a>
     </ng-template>
 
+    <ng-template #commentsTemplate let-row="row" let-value="value">
+      <span *ngIf="!editing[row.$$index + '-comments']" class="inline-label" (dblclick)="editing[row.$$index + '-comments'] = true">
+        {{value}}
+      </span>
+      <input *ngIf="editing[row.$$index + '-description']" class="inline-editor" autofocus (blur)="updateValue($event, 'description', value, row)" type="text" [value]="value" />
+    </ng-template>
+
     <!-- MODAL-->
     <div class="modal fade" bsModal #editorModal="bs-modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title pull-left"><i class="fa fa-tasks"></i> {{'todoDemo.editor.NewTask' | translate}}</h4>
+            <h4 class="modal-title pull-left"><i class="fa fa-tasks"></i> {{'order.editor.NewOrder' | translate}}</h4>
             <button type="button" class="close pull-right" title="Close" (click)="editorModal.hide()">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form *ngIf="formResetToggle" class="form-horizontal" name="taskEditorForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
-               (!taskName.valid && showErrorAlert('Task name is required', 'Please enter a name for the task'));">
+            <form *ngIf="formResetToggle" class="form-horizontal" name="orderEditorForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
+               (!orderName.valid && showErrorAlert('Order name is required', 'Please enter a name for the order'));">
               <div class="form-group has-feedback">
-                <label class="control-label col-md-2" for="taskName">{{'todoDemo.editor.Name' | translate}}:</label>
-                <div class="col-md-10" [ngClass]="{'has-success': f.submitted && taskName.valid, 'has-error' : f.submitted && !taskName.valid}">
-                  <input autofocus type="text" id="taskName" name="taskName" placeholder="Enter task name" class="form-control" [(ngModel)]="taskEdit.name" #taskName="ngModel" required />
-                  <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ':taskName.valid, 'glyphicon-remove' : !taskName.valid}"></span>
-                  <span *ngIf="f.submitted && !taskName.valid" class="errorMessage">
-                    {{'todoDemo.editor.TaskNameRequired' | translate}}
+                <label class="control-label col-md-2" for="orderName">{{'order.editor.Name' | translate}}:</label>
+                <div class="col-md-10" [ngClass]="{'has-success': f.submitted && orderName.valid, 'has-error' : f.submitted && !orderName.valid}">
+                  <input autofocus type="text" id="orderName" name="orderName" placeholder="Enter order name" class="form-control" [(ngModel)]="orderEdit.name" #orderName="ngModel" required />
+                  <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ':orderName.valid, 'glyphicon-remove' : !orderName.valid}"></span>
+                  <span *ngIf="f.submitted && !orderName.valid" class="errorMessage">
+                    {{'order.editor.OrderNameRequired' | translate}}
                   </span>
                 </div>
               </div>
               <div class="form-group description-form-group">
-                <label class="control-label col-md-2" for="taskDescription">{{'todoDemo.editor.Description' | translate}}:</label>
+                <label class="control-label col-md-2" for="orderDescription">{{'order.editor.Description' | translate}}:</label>
                 <div class="col-md-10">
-                  <input type="text" id="taskDescription" name="taskDescription" placeholder="Enter task description" class="form-control" [(ngModel)]="taskEdit.description" />
+                  <input type="text" id="orderDescription" name="orderDescription" placeholder="Enter order description" class="form-control" [(ngModel)]="orderEdit.description" />
                 </div>
               </div>
               <label class="control-label col-md-2"> </label>
               <div class="col-md-7">
                 <div class="checkbox">
                   <label>
-                    <input name="isImportant" type="checkbox" [(ngModel)]="taskEdit.important">
-                    {{'todoDemo.editor.Important' | translate}}
+                    <input name="isImportant" type="checkbox" [(ngModel)]="orderEdit.important">
+                    {{'order.editor.Important' | translate}}
                   </label>
                 </div>
               </div>
@@ -85,7 +92,7 @@
 
               <div class="form-group actionBtn-form-group">
                 <div class="pull-right">
-                  <button type="submit" class="btn btn-primary">{{'todoDemo.editor.AddTask' | translate}}</button>
+                  <button type="submit" class="btn btn-primary">{{'order.editor.AddOrder' | translate}}</button>
                 </div>
               </div>
               <div class="clearfix"></div>
