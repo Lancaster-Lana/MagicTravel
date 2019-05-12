@@ -15,6 +15,6 @@ namespace Core.Entities
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

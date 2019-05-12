@@ -8,12 +8,13 @@ using Web.Helpers;
 using Web.ViewModels;
 using AutoMapper;
 using Core.Entities;
+using System.Collections.Generic;
 
 namespace Web.Controllers
 {
     [Route("api/orders")]
     [AutoValidateAntiforgeryToken]
-    [Produces("application/json")]
+    //[Produces("application/json")]
     public class OrderApiController : Controller
     {
         private IUnitOfWork _unitOfWork;
@@ -29,19 +30,23 @@ namespace Web.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "Administrator")]
+        [Produces(typeof(IEnumerable<OrderViewModel>))]
         public async Task<IActionResult> List(string search = "" )
         {
-            var list = _unitOfWork.Orders.GetAll();//.Find(o => o.Customer)
+            var data = _unitOfWork.Orders.GetAll();//.Find(o => o.Customer)
              
             if (!string.IsNullOrWhiteSpace(search))
-                list = list.Where(p => p.Customer.Name.ToLower().Contains(search.ToLower()));
+                data = data.Where(p => p.Customer.Name.ToLower().Contains(search.ToLower()));
             //   || p.Address.Street.ToLower().Contains(search.ToLower()));
 
-            var res = await list
-                .Include(o => o.Customer)
-                .Include(o => o.OrderDetails)   
+            var allOrders = await data
+                //.Include(o => o.Customer)
+                //.Include(o => o.OrderDetails)   
                 //.Include(o => o.Payment) - payed or not
                 .ToListAsync();
+
+            var res = Mapper.Map<IEnumerable<OrderViewModel>>(allOrders);
+
             return Ok(res);
         }
 

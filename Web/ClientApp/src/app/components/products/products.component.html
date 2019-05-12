@@ -60,64 +60,63 @@
     </ng-template>
 
     <ng-template #actionsTemplate let-row="row">
-      <a class="btn btn-link btn-xs" href="javascript:;" tooltip="{{'todoDemo.management.Delete' | translate}}" container="body" (click)="delete(row)"><i class="fa fa-times"></i></a>
+      <a class="btn btn-link btn-xs" href="javascript:;" tooltip="{{'product.management.Delete' | translate}}" container="body" (click)="delete(row)"><i class="fa fa-times"></i></a>
       <a class="btn btn-link btn-xs" href="javascript:;" tooltip="{{'todoDemo.management.Important' | translate}}" container="body" (click)="row.important = !row.important" (mouseover)="row.isMouseOver=true" (mouseout)="row.isMouseOver=false">
         <i *ngIf="row.important || row.isMouseOver" class="fa fa-bookmark"></i>
         <i *ngIf="!row.important && !row.isMouseOver" class="fa fa-bookmark-o"></i>
       </a>
     </ng-template>
+  </div>
 
-    <!-- MODAL-->
-    <div class="modal fade" bsModal #editorModal="bs-modal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title pull-left"><i class="fa fa-tasks"></i> {{'product.editor.NewProduct' | translate}}</h4>
-            <button type="button" class="close pull-right" title="Close" (click)="editorModal.hide()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form *ngIf="formResetToggle" class="form-horizontal" name="taskEditorForm" #f="ngForm" novalidate
-                  (ngSubmit)="f.form.valid ? save() :
-                      (!taskName.valid && showErrorAlert('Product name is required', 'Please enter a name of a new product'));">
-              <div class="form-group has-feedback">
-                <label class="control-label col-md-2" for="taskName">{{'product.editor.Name' | translate}}:</label>
-                <div class="col-md-10" [ngClass]="{'has-success': f.submitted && taskName.valid, 'has-error' : f.submitted && !taskName.valid}">
-                  <input autofocus type="text" id="productName" name="productName" placeholder="Enter product name" class="form-control" [(ngModel)]="productEdit.name" #taskName="ngModel" required />
-                  <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ':taskName.valid, 'glyphicon-remove' : !taskName.valid}"></span>
-                  <span *ngIf="f.submitted && !productName.valid" class="errorMessage">
-                    {{'product.editor.ProductNameRequired' | translate}}
-                  </span>
-                </div>
+  <!-- MODAL-->
+ 
+  <div class="modal fade" bsModal #editorModal="bs-modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left"><i class="fa fa-tasks"></i> {{'product.editor.NewProduct' | translate}}</h4>
+          <button type="button" class="close pull-right" title="Close" (click)="editorModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form *ngIf="formResetToggle" class="form-horizontal" name="productEditorForm" #f="ngForm" novalidate
+                (ngSubmit)="f.form.valid ? save() :
+                      (!productName.valid && showErrorAlert('Product name is required', 'Please enter a name of a new product'));">
+            <div class="form-group has-feedback">
+              <label class="control-label col-md-2" for="productName">{{'product.editor.Name' | translate}}:</label>
+              <div class="col-md-10" [ngClass]="{'has-success': f.submitted && productName.valid, 'has-error' : f.submitted && !productName.valid}">
+                <input #productName="ngModel" id="productName" name="productName" [(ngModel)]="productEdit.name" required autofocus type="text" placeholder="Enter product name" class="form-control"  />
+                <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ':productName.valid, 'glyphicon-remove' : !productName.valid}"></span>
+                <span *ngIf="f.submitted && !productName.valid" class="errorMessage">
+                  {{'product.editor.ProductNameRequired' | translate}}
+                </span>
               </div>
-              <div class="form-group description-form-group">
-                <label class="control-label col-md-2" for="productDescription">{{'product.editor.Description' | translate}}:</label>
-                <div class="col-md-10">
-                  <input type="text" id="productDescription" name="taskDescription" placeholder="Enter product description" class="form-control" [(ngModel)]="productEdit.description" />
-                </div>
+            </div>
+            <div class="form-group description-form-group">
+              <label class="control-label col-md-2" for="productDescription">{{'product.editor.Description' | translate}}:</label>
+              <div class="col-md-10">
+                <input [(ngModel)]="productEdit.description" id="productDescription" name="productDescription" type="text" placeholder="Enter product description" class="form-control" />
               </div>
-              <label class="control-label col-md-2"> </label>
-              <div class="col-md-7">
-                <div class="checkbox">
-                  <label>
-                    <input name="isImportant" type="checkbox" [(ngModel)]="taskEdit.important">
-                    {{'product.editor.Important' | translate}}
-                  </label>
-                </div>
+            </div>
+            <label class="control-label col-md-2" for="isImportant"> </label>
+            <div class="col-md-7">
+              <div class="checkbox">
+                  <input name="isImportant" [(ngModel)]="productEdit.important" type="checkbox" >
+                  {{'product.editor.Important' | translate}}
               </div>
-              <div class="col-md-12">
-                <hr class="edit-last-separator-hr" />
-              </div>
+            </div>
+            <div class="col-md-12">
+              <hr class="edit-last-separator-hr" />
+            </div>
 
-              <div class="form-group actionBtn-form-group">
-                <div class="pull-right">
-                  <button type="submit" class="btn btn-primary">{{'product.editor.AddProduct' | translate}}</button>
-                </div>
+            <div class="form-group actionBtn-form-group">
+              <div class="pull-right">
+                <button type="submit" class="btn btn-primary">{{'product.editor.AddProduct' | translate}}</button>
               </div>
-              <div class="clearfix"></div>
-            </form>
-          </div>
+            </div>
+            <!--<div class="clearfix"></div>-->
+          </form>
         </div>
       </div>
     </div>

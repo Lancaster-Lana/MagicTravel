@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, TemplateRef, OnInit, OnDestroy } from '@an
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ProductService } from 'src/app/services/product.service';
-import { AlertService } from 'src/app/services/alert.service';
+import { AlertService, DialogType } from 'src/app/services/alert.service';
 import { AppTranslationService } from 'src/app/services/app-translation.service';
 import { fadeInOut } from '../../services/animations';
 import { Utilities } from 'src/app/services/utilities';
@@ -14,15 +14,19 @@ import { Utilities } from 'src/app/services/utilities';
     animations: [fadeInOut]
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
+  columns = [];//displayed columns
 
+  products = [];
+  productsCache = [];
   productCount: number = 0;
   selectedCount: { [prodId: number]: number } = {}; //dictionary with selected numbers of products
 
-  columns = [];
-  products = [];
   editing = {}; //table edit
-
   productEdit = {};
+
+  isDataLoaded: boolean = false;
+  loadingIndicator: boolean = true;
+  formResetToggle: boolean = true;
 
   errorReceived: boolean = false;
   errorMsg: string;
@@ -78,15 +82,25 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     ];
   }
 
+  ngOnDestroy() {
+    this.saveToDisk();
+  }
+
   loadProducts() {
-      this.errorReceived = false;
+
+    this.errorReceived = false;
+    this.loadingIndicator = true;
+
+    let gT = (key: string) => this.translationService.getTranslation(key);
 
       //return this.prodServ.productsFiltered; //get products filtered by category (prodServ = Mediator)
       this.service.getProducts()
         .subscribe(products => {
+          this.refreshDataIndexes(products);
           this.products = products;
-          //this.oldOrders = this.orders;
-          console.log('products items retrieved: ' + products.length);
+          this.productsCache = [...products];
+          this.isDataLoaded = true;
+          setTimeout(() => { this.loadingIndicator = false; }, 1500);
         },
           err => {
             //this.errorMsg = err ? err.Error : null;
@@ -95,12 +109,16 @@ export class ProductsListComponent implements OnInit, OnDestroy {
           });
     }
 
-  ngOnDestroy() {
-    //this.saveToDisk();
+  refreshDataIndexes(data) {
+    let index = 0;
+
+    for (let i of data) {
+      i.$$index = index++;
+    }
   }
 
   onSearchChanged(value: string) {
-    //this.products = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
+    this.products = this.productsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
   }
 
   //showErrorAlert(caption: string, message: string) {
@@ -108,14 +126,54 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   //}
 
   addProduct() {
-    //this.formResetToggle = false;
+    //this.formResetToggle = true;
 
     setTimeout(() => {
-      //this.formResetToggle = true;
+      this.formResetToggle = true;
 
       this.productEdit = {};
       this.editorModal.show();
     });
+  }
+
+  save() {
+    this.productsCache.splice(0, 0, this.productEdit);
+    this.products.splice(0, 0, this.productEdit);
+    this.refreshDataIndexes(this.productsCache);
+    this.products = [...this.products];
+
+    this.saveToDisk();
+    this.editorModal.hide();
+  }
+
+  updateValue(event, cell, cellValue, row) {
+    this.editing[row.$$index + '-' + cell] = false;
+    this.products[row.$$index][cell] = event.target.value;
+    this.products = [...this.products];
+
+    this.saveToDisk();
+  }
+
+  delete(row) {
+    this.alertService.showDialog('Are you sure you want to delete the product?',
+      DialogType.confirm, () => this.deleteConfirm(row));
+  }
+
+  deleteConfirm(row) {
+    //this.service.deleteProduct(row);
+    this.productsCache = this.productsCache.filter(item => item !== row);
+    this.products = this.products.filter(item => item !== row);
+
+    this.saveToDisk();
+  }
+
+  getFromDisk() {
+    //return this.localStorage.getDataObject(`${ProductsListComponent.DBKeyTodoDemo}:${this.currentUserId}`);
+  }
+
+  saveToDisk() {
+    //if (this.isDataLoaded)
+      //this.localStorage.saveSyncedSessionData(this.productsCache, `${ProductsListComponent.DBKeyTodoDemo}:${this.currentUserId}`);
   }
 
   /*

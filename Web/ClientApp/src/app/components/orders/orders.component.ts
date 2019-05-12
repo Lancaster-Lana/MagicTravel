@@ -33,8 +33,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   @ViewChild('statusTemplate')
   statusTemplate: TemplateRef<any>;
 
-  @ViewChild('nameTemplate')
-  nameTemplate: TemplateRef<any>;
+  @ViewChild('customerTemplate')
+  customerTemplate: TemplateRef<any>;
 
   @ViewChild('commentsTemplate')
   commentsTemplate: TemplateRef<any>;
@@ -63,9 +63,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     let gT = (key: string) => this.translationService.getTranslation(key);
 
     this.columns = [
-      { prop: "completed", name: '', width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-      //{ prop: 'customerId', name: 'customerId', cellTemplate: this.nameTemplate, width: 200 },
-      //{ prop: 'discount', name: 'discount', cellTemplate: this.discountTemplate, width: 500 },
+      //{ prop: "completed", name: '', width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+      { prop: 'customerId', name: 'customerId', cellTemplate: this.customerTemplate, width: 200 },
+      { prop: 'discount', name: 'discount', cellTemplate: null, width: 500 },
       { prop: 'comments', name: 'comments', cellTemplate: this.commentsTemplate, width: 500 },
       { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
     ];
@@ -74,11 +74,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   fillOrders() {
     this.errorReceived = false;
 
-    this.service.getOrders()    
-      .subscribe(orders => {
+    this.service.getOrders()
+      .subscribe(orders =>
+      {
         this.orders = orders;
         //this.oldOrders = this.orders;
-        console.log('orders items retrieved: ' + orders.length);
+        //console.log('orders items retrieved: ' + orders.length);
       },
       err => {
         this.errorReceived = true;

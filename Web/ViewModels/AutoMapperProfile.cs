@@ -48,6 +48,9 @@ namespace Web.ViewModels
 
             CreateMap<Order, OrderViewModel>()
                 .ReverseMap();
+
+            CreateMap<OrderDetail, OrderDetailViewModel>()
+                .ReverseMap();
         }
     }
 }

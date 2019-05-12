@@ -141,8 +141,8 @@ namespace DAL
                     Discount = 500,
                     Cashier = await _context.Users.FirstAsync(),
                     Customer = cust_1,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow,
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow,
                     OrderDetails = new List<OrderDetail>()
                     {
                         new OrderDetail() {UnitPrice = prod_1.SellingPrice, Quantity=1, Product = prod_1 },
@@ -154,8 +154,8 @@ namespace DAL
                 {
                     Cashier = await _context.Users.FirstAsync(),
                     Customer = cust_2,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow,
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow,
                     OrderDetails = new List<OrderDetail>()
                     {
                         new OrderDetail() {UnitPrice = prod_2.SellingPrice, Quantity=1, Product = prod_2 },

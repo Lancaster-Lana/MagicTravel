@@ -175,6 +175,7 @@
     "editor": {
       "NewProduct": "New Product",
       "Name": "Product Name",
+      "ProductNameRequired": "Name is required",
       "Price": "Payed Price",
       "TaskNameRequired": "Product name is required",
       "Description": "Description",

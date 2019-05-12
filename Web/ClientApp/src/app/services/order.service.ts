@@ -61,14 +61,10 @@ export class OrderService
     });
   }*/
 
-  getOrders(): Observable<Order[]> {
-    //let url = this.ordersUrl + '/api/v1/o/orders';
+  getOrders(): Observable<Order[]>
+  {
     let result = this.http.get<Order[]>(ordersUrl);
     return result;
-
-    //return this.service.get(url).map((response: Response) => {
-    //  return response.json();
-    //});
   }
 
   createOrder(order : Order = this.order)

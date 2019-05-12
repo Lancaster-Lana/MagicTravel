@@ -1,19 +1,25 @@
 import { Address } from "./address.model";
+import { Customer } from "./customer.model";
 
 export class Order
 {
-  id: number = 0;
-  comments: string = "";
-  discount: number = 0;
-  name: string = ""; //addresser сustomer FIO
-  email: string; //email for notification with order\delivery time etc.
-  address: Address = new Address(); //set default empty address
-  payment: Payment = new Payment();
-  selectedProducts: CartLine[];
+  constructor(
+    public id: number = 0,
+    public comments: string = "",
+    public discount: number = 0,
+    public name: string = "", //addresser сustomer FIO
+    public email: string ="", //email for notification with order\delivery time etc.
+    public address: Address = null, //set default empty address
+    public payment: Payment = null,
+    //CustomerId: number = 0,
+    public customer: Customer = null,
+    public selectedProducts: CartLine[] = null,
 
-  submitted: boolean = false;
-  shipped: boolean = false;
-  orderConfirmation: OrderConfirmation;// = new OrderConfirmation();
+    public submitted: boolean = false,
+    public shipped: boolean = false,
+    public orderConfirmation: OrderConfirmation = null) {
+  }
+  // = new OrderConfirmation();
 
   clear() {
     this.name = null;

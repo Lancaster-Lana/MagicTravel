@@ -17,9 +17,6 @@ namespace Web.ViewModels
         public ICollection<OrderViewModel> Orders { get; set; }
     }
 
-
-
-
     public class CustomerViewModelValidator : AbstractValidator<CustomerViewModel>
     {
         public CustomerViewModelValidator()
