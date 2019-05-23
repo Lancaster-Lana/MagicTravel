@@ -7,9 +7,6 @@ namespace Core.Entities
         public int Id { get; set; }
         public decimal Discount { get; set; }
         public string Comments { get; set; }
-        //public DateTime DateCreated { get; set; }
-        //public DateTime DateModified { get; set; }
-
         public string CashierId { get; set; }
         public virtual ApplicationUser Cashier { get; set; }
 

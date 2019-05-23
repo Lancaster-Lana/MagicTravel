@@ -60,8 +60,8 @@ namespace DAL
                     Name = " Trava",
                     Email = "contact@trava.com",
                     Gender = Gender.Male,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    //UpdatedDate = DateTime.UtcNow
                 };
 
                 var cust_2 = new Customer
@@ -72,8 +72,8 @@ namespace DAL
                     Address = "Some fictional Address, Street 123",
                     City = "New Y",
                     Gender = Gender.Female,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow
                 };
 
                 var cust_3 = new Customer
@@ -85,8 +85,8 @@ namespace DAL
                     Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet",
                     City = "Lorem Ipsum",
                     Gender = Gender.Male,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow
                 };
 
                 var cust_4 = new Customer
@@ -98,16 +98,16 @@ namespace DAL
                     Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet",
                     City = "Lorem Ipsum",
                     Gender = Gender.Male,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    //UpdatedDate = DateTime.UtcNow
                 };
 
                 var prodCat_1 = new ProductCategory
                 {
                     Name = "None",
                     Description = "Default category. Products that have not been assigned a category",
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    //DateModified = DateTime.UtcNow
                 };
 
                 var prod_1 = new Product
@@ -119,8 +119,8 @@ namespace DAL
                     UnitsInStock = 12,
                     IsActive = true,
                     ProductCategory = prodCat_1,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    //DateModified = DateTime.UtcNow
                 };
 
                 var prod_2 = new Product
@@ -132,8 +132,7 @@ namespace DAL
                     UnitsInStock = 4,
                     IsActive = true,
                     ProductCategory = prodCat_1,
-                    DateCreated = DateTime.UtcNow,
-                    DateModified = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow
                 };
 
                 var ordr_1 = new Order
@@ -145,7 +144,9 @@ namespace DAL
                     UpdatedDate = DateTime.UtcNow,
                     OrderDetails = new List<OrderDetail>()
                     {
-                        new OrderDetail() {UnitPrice = prod_1.SellingPrice, Quantity=1, Product = prod_1 },
+                        new OrderDetail() {
+                            CreatedDate = DateTime.Now,
+                            UnitPrice = prod_1.SellingPrice, Quantity=1, Product = prod_1 },
                         new OrderDetail() {UnitPrice = prod_2.SellingPrice, Quantity=1, Product = prod_2 },
                     }
                 };
@@ -158,7 +159,10 @@ namespace DAL
                     UpdatedDate = DateTime.UtcNow,
                     OrderDetails = new List<OrderDetail>()
                     {
-                        new OrderDetail() {UnitPrice = prod_2.SellingPrice, Quantity=1, Product = prod_2 },
+                        new OrderDetail
+                        {
+                            CreatedDate = DateTime.Now,
+                            UnitPrice = prod_2.SellingPrice, Quantity=1, Product = prod_2 },
                     }
                 };
 

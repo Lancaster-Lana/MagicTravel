@@ -12,12 +12,10 @@ namespace Web.Helpers
         static string testEmailTemplate;
         static string plainTextTestEmailTemplate;
 
-
         public static void Initialize(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
         }
-
 
         public static string GetTestEmail(string recepientName, DateTime testDate)
         {
@@ -32,8 +30,6 @@ namespace Web.Helpers
             return emailMessage;
         }
 
-
-
         public static string GetPlainTextTestEmail(DateTime date)
         {
             if (plainTextTestEmailTemplate == null)
@@ -45,9 +41,6 @@ namespace Web.Helpers
 
             return emailMessage;
         }
-
-
-
 
         private static string ReadPhysicalFile(string path)
         {

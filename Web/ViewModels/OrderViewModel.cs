@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 
 namespace Web.ViewModels
@@ -8,8 +9,9 @@ namespace Web.ViewModels
         public int Id { get; set; }
         public decimal Discount { get; set; }
         public string Comments { get; set; }
-        //public DateTime DateCreated { get; set; }
-        //public DateTime DateModified { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
 
         public string CashierId { get; set; }
         public UserViewModel Cashier { get; set; }

@@ -15,10 +15,6 @@ namespace Core.Entities
         public int UnitsInStock { get; set; }
         public bool IsActive { get; set; }
         public bool IsDiscontinued { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
-
-
         public int? ParentId { get; set; }
         public Product Parent { get; set; }
 

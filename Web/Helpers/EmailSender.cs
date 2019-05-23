@@ -28,8 +28,6 @@ namespace Web.Helpers
         {
             _config = config.Value;
         }
-
-
         public async Task<(bool success, string errorMsg)> SendEmailAsync(
             string recepientName,
             string recepientEmail,
@@ -43,8 +41,6 @@ namespace Web.Helpers
 
             return await SendEmailAsync(from, new MailboxAddress[] { to }, subject, body, config, isHtml);
         }
-
-
 
         public async Task<(bool success, string errorMsg)> SendEmailAsync(
             string senderName,
@@ -61,8 +57,6 @@ namespace Web.Helpers
 
             return await SendEmailAsync(from, new MailboxAddress[] { to }, subject, body, config, isHtml);
         }
-
-
 
         public async Task<(bool success, string errorMsg)> SendEmailAsync(
             MailboxAddress sender,

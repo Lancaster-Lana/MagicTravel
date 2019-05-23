@@ -15,7 +15,7 @@ namespace Web.ViewModels
         public bool IsActive { get; set; }
         public bool IsDiscontinued { get; set; }
         public string ProductCategoryName { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

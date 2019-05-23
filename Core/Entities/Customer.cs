@@ -12,9 +12,6 @@ namespace Core.Entities
         public string Address { get; set; }
         public string City { get; set; }
         public Gender Gender { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
-
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

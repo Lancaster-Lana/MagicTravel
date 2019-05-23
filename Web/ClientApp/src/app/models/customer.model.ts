@@ -10,8 +10,8 @@ export class Customer {
     public address: Address,
     //City { get; set; }
     public gender: boolean = false,//male =0 , female = 1;
-    public dateCreated: Date,
-    public dateModified: Date
+    public createdDate: Date,
+    public updatedDate: Date
     //Orders { get; set; }
   ) { }
 }

@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190324152726_InitDB")]
+    [Migration("20190523231239_InitDB")]
     partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -138,10 +138,6 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
                     b.Property<string>("Email")
                         .HasMaxLength(100);
 
@@ -184,10 +180,6 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<int>("CustomerId");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
@@ -257,10 +249,6 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
                     b.Property<string>("Description")
                         .HasMaxLength(500);
 
@@ -311,10 +299,6 @@ namespace DAL.Migrations
                         .HasMaxLength(256);
 
                     b.Property<DateTime>("CreatedDate");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500);
