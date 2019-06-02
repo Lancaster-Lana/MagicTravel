@@ -43,9 +43,9 @@ namespace DAL
                 await EnsureRoleAsync(userRoleName, "Default user", new string[] { });
 
                 //var adminUser = 
-                    await CreateUserAsync("admin", "tempP@ss123", "Inbuilt Administrator", "admin@lana.com", "+1 (123) 000-0000", new string[] { adminRoleName });
+                    await CreateUserAsync("admin", "Admin#123", "Inbuilt Administrator", "admin@lana.com", "+1 (123) 000-0000", new string[] { adminRoleName });
                 //var guestUser = 
-                    await CreateUserAsync("user", "tempP@ss123", "Inbuilt Standard User", "user@lana.com", "+1 (123) 000-0001", new string[] { userRoleName });
+                    await CreateUserAsync("user", "User#123", "Inbuilt Standard User", "user@lana.com", "+1 (123) 000-0001", new string[] { userRoleName });
                 //adminUser.Permissions.Add
 
                 _logger.LogInformation("Inbuilt account generation completed");
